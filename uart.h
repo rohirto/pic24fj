@@ -1,3 +1,12 @@
+/* 
+ * File:   uart.h
+ * Author: admin
+ *
+ * Created on 22 January, 2016, 12:52 PM
+ */
+
+#ifndef UART_H
+#define	UART_H
 
 /*******************************************************************************************************
 	define section
@@ -28,8 +37,8 @@
 #define UART_2_RX_PIN_DIR			(TRISFbits.TRISF4 = 1 )
 
 /************************************  UART     ****************************************************/
-#define UART_1_BAUDRATE 				19200	
-#define UART_2_BAUDRATE 				9600	
+#define UART_1_BAUDRATE 				19200
+#define UART_2_BAUDRATE 				9600
 
 // **************** This part of code is copied from Microchip's header file ****************************/
 
@@ -82,7 +91,7 @@
 #define UART_NO_PAR_8BIT        0x0000 							/*no parity 8 bit*/
 #define UART_PARITY_MASK        (~UART_NO_PAR_9BIT)
 
-#define UART_2STOPBITS          0x0001							/*2 stop bits*/     
+#define UART_2STOPBITS          0x0001							/*2 stop bits*/
 #define UART_1STOPBIT           0x0000 							/*1 stop bit*/
 #define UART_STOPBIT_MASK       (~UART_2STOPBITS)
 
@@ -118,7 +127,7 @@
 /* defines for UART Interrupt configuartion */
 #define UART_RX_INT_EN          0x0008							/*Receive interrupt enabled*/
 #define UART_RX_INT_DIS         0x0000							/*Receive interrupt disabled*/
-#define UART_RX_INT_MASK        (~UART_RX_INT_EN) 
+#define UART_RX_INT_MASK        (~UART_RX_INT_EN)
 
 #define UART_RX_INT_PR0         0x0000 						/*Priority RX interrupt 0*/
 #define UART_RX_INT_PR1         0x0001 						/*Priority RX interrupt 1*/
@@ -128,11 +137,11 @@
 #define UART_RX_INT_PR5         0x0005 						/*Priority RX interrupt 5*/
 #define UART_RX_INT_PR6         0x0006 						/*Priority RX interrupt 6*/
 #define UART_RX_INT_PR7         0x0007 						/*Priority RX interrupt 7*/
-#define UART_RX_INT_PR_MASK     (~UART_RX_INT_PR7) 
+#define UART_RX_INT_PR_MASK     (~UART_RX_INT_PR7)
 
 #define UART_TX_INT_EN          0x0080 						/*transmit interrupt enabled*/
 #define UART_TX_INT_DIS         0x0000						/*transmit interrupt disabled*/
-#define UART_TX_INT_MASK        (~UART_TX_INT_EN) 
+#define UART_TX_INT_MASK        (~UART_TX_INT_EN)
 
 #define UART_TX_INT_PR0         0x0000 						/*Priority TX interrupt 0*/
 #define UART_TX_INT_PR1         0x0010						/*Priority TX interrupt 1*/
@@ -147,111 +156,103 @@
 
 /********************************************************************************
 Macro       : EnableIntU1RX
- 
+
 Include     : uart.h
- 
-Description : This macro sets UART Receive Interrupt 
- 
+
+Description : This macro sets UART Receive Interrupt
+
 Arguments   : None
- 
-Remarks     : This macro sets UART Receive Interrupt Enable bit of Interrupt 
+
+Remarks     : This macro sets UART Receive Interrupt Enable bit of Interrupt
               Enable Control register
 *********************************************************************************/
 #define EnableIntU1RX                    asm("BSET IEC0,#11")
 
 /********************************************************************************
 Macro       : EnableIntU1TX
- 
+
 Include     : uart.h
- 
-Description : This macro sets UART Transmit Interrupt 
- 
+
+Description : This macro sets UART Transmit Interrupt
+
 Arguments   : None
- 
-Remarks     : This macro sets UART Transmit Interrupt Enable bit of Interrupt 
+
+Remarks     : This macro sets UART Transmit Interrupt Enable bit of Interrupt
               Enable Control register
 *********************************************************************************/
 #define EnableIntU1TX                    asm("BSET IEC0,#12")
 
 /********************************************************************************
 Macro       : DisableIntU1RX
- 
+
 Include     : uart.h
- 
-Description : This macro disables the UART Receive Interrupt 
- 
+
+Description : This macro disables the UART Receive Interrupt
+
 Arguments   : None
- 
-Remarks     : This macro clears UART Receive Interrupt Enable bit of Interrupt 
+
+Remarks     : This macro clears UART Receive Interrupt Enable bit of Interrupt
               Enable Control register
 *********************************************************************************/
 #define DisableIntU1RX                   asm("BCLR IEC0,#11")
 
 /********************************************************************************
 Macro       : DisableIntU1TX
- 
+
 Include     : uart.h
- 
-Description : This macro disables the UART Transmit Interrupt 
- 
+
+Description : This macro disables the UART Transmit Interrupt
+
 Arguments   : None
- 
-Remarks     : This macro clears UART Transmit Interrupt Enable bit of Interrupt 
+
+Remarks     : This macro clears UART Transmit Interrupt Enable bit of Interrupt
               Enable Control register
 *********************************************************************************/
 #define DisableIntU1TX                   asm("BCLR IEC0,#12")
 
 /********************************************************************************
 Macro       : SetPriorityIntU1RX
- 
+
 Include     : uart.h
- 
-Description : This macro sets priority for UART receive interrupt. 
- 
+
+Description : This macro sets priority for UART receive interrupt.
+
 Arguments   : priority - This input parameter is the level of interrupt priority
- 
-Remarks     : This macro sets UART Receive Interrupt Priority bits of Interrupt 
+
+Remarks     : This macro sets UART Receive Interrupt Priority bits of Interrupt
               Priority Control register.
 *********************************************************************************/
 #define SetPriorityIntU1RX(priority)     (IPC2bits.U1RXIP = priority)
 
 /********************************************************************************
 Macro       : SetPriorityIntU1TX
- 
+
 Include     : uart.h
- 
-Description : This macro sets priority for UART transmit interrupt. 
- 
+
+Description : This macro sets priority for UART transmit interrupt.
+
 Arguments   : priority - This input parameter is the level of interrupt priority
- 
-Remarks     : This macro sets UART Transmit Interrupt Priority bits of Interrupt 
+
+Remarks     : This macro sets UART Transmit Interrupt Priority bits of Interrupt
               Priority Control register.
 *********************************************************************************/
 #define SetPriorityIntU1TX(priority)     (IPC3bits.U1TXIP = priority)
 
 /*******************************************************************
 Macro       : U1RX_Clear_Intr_Status_Bit
-
-Include     : uart.h 
-
-Description : Macro to Clear external Interrupt Status bit 
-
-Arguments   : None 
-
-Remarks     : None 
+Include     : uart.h
+Description : Macro to Clear external Interrupt Status bit
+Arguments   : None
+Remarks     : None
 *******************************************************************/
 #define U1RX_Clear_Intr_Status_Bit     (IFS0bits.U1RXIF = 0)
 
 /*******************************************************************
 Macro       : U1TX_Clear_Intr_Status_Bit
-
-Include     : uart.h 
-
-Description : Macro to Clear external Interrupt Status bit 
-
-Arguments   : None 
-
-Remarks     : None 
+Include     : uart.h
+Description : Macro to Clear external Interrupt Status bit
+Arguments   : None
+Remarks     : None
 *******************************************************************/
 #define U1TX_Clear_Intr_Status_Bit     (IFS0bits.U1TXIF = 0)
 
@@ -261,111 +262,103 @@ Remarks     : None
 
 /********************************************************************************
 Macro       : EnableIntU2RX
- 
+
 Include     : uart.h
- 
-Description : This macro sets UART Receive Interrupt 
- 
+
+Description : This macro sets UART Receive Interrupt
+
 Arguments   : None
- 
-Remarks     : This macro sets UART Receive Interrupt Enable bit of Interrupt 
+
+Remarks     : This macro sets UART Receive Interrupt Enable bit of Interrupt
               Enable Control register
 *********************************************************************************/
 #define EnableIntU2RX                    asm("BSET IEC1,#14")
 
 /********************************************************************************
 Macro       : EnableIntU2TX
- 
+
 Include     : uart.h
- 
-Description : This macro sets UART Transmit Interrupt 
- 
+
+Description : This macro sets UART Transmit Interrupt
+
 Arguments   : None
- 
-Remarks     : This macro sets UART Transmit Interrupt Enable bit of Interrupt 
+
+Remarks     : This macro sets UART Transmit Interrupt Enable bit of Interrupt
               Enable Control register
 *********************************************************************************/
 #define EnableIntU2TX                    asm("BSET IEC1,#15")
 
 /********************************************************************************
 Macro       : DisableIntU2RX
- 
+
 Include     : uart.h
- 
-Description : This macro disables the UART Receive Interrupt 
- 
+
+Description : This macro disables the UART Receive Interrupt
+
 Arguments   : None
- 
-Remarks     : This macro clears UART Receive Interrupt Enable bit of Interrupt 
+
+Remarks     : This macro clears UART Receive Interrupt Enable bit of Interrupt
               Enable Control register
 *********************************************************************************/
 #define DisableIntU2RX                   asm("BCLR IEC1,#14")
 
 /********************************************************************************
 Macro       : DisableIntU2TX
- 
+
 Include     : uart.h
- 
-Description : This macro disables the UART Transmit Interrupt 
- 
+
+Description : This macro disables the UART Transmit Interrupt
+
 Arguments   : None
- 
-Remarks     : This macro clears UART Transmit Interrupt Enable bit of Interrupt 
+
+Remarks     : This macro clears UART Transmit Interrupt Enable bit of Interrupt
               Enable Control register
 *********************************************************************************/
 #define DisableIntU2TX                   asm("BCLR IEC1,#15")
 
 /********************************************************************************
 Macro       : SetPriorityIntU2RX
- 
+
 Include     : uart.h
- 
-Description : This macro sets priority for UART receive interrupt. 
- 
+
+Description : This macro sets priority for UART receive interrupt.
+
 Arguments   : priority - This input parameter is the level of interrupt priority
- 
-Remarks     : This macro sets UART Receive Interrupt Priority bits of Interrupt 
+
+Remarks     : This macro sets UART Receive Interrupt Priority bits of Interrupt
               Priority Control register.
 *********************************************************************************/
 #define SetPriorityIntU2RX(priority)     (IPC7bits.U2RXIP = priority)
 
 /********************************************************************************
 Macro       : SetPriorityIntU2TX
- 
+
 Include     : uart.h
- 
-Description : This macro sets priority for UART transmit interrupt. 
- 
+
+Description : This macro sets priority for UART transmit interrupt.
+
 Arguments   : priority - This input parameter is the level of interrupt priority
- 
-Remarks     : This macro sets UART Transmit Interrupt Priority bits of Interrupt 
+
+Remarks     : This macro sets UART Transmit Interrupt Priority bits of Interrupt
               Priority Control register.
 *********************************************************************************/
 #define SetPriorityIntU2TX(priority)     (IPC7bits.U2TXIP = priority)
 
 /*******************************************************************
 Macro       : U2RX_Clear_Intr_Status_Bit
-
-Include     : uart.h 
-
-Description : Macro to Clear external Interrupt Status bit 
-
-Arguments   : None 
-
-Remarks     : None 
+Include     : uart.h
+Description : Macro to Clear external Interrupt Status bit
+Arguments   : None
+Remarks     : None
 *******************************************************************/
 #define U2RX_Clear_Intr_Status_Bit     (IFS1bits.U2RXIF = 0)
 
 /*******************************************************************
 Macro       : U2TX_Clear_Intr_Status_Bit
-
-Include     : uart.h 
-
-Description : Macro to Clear external Interrupt Status bit 
-
-Arguments   : None 
-
-Remarks     : None 
+Include     : uart.h
+Description : Macro to Clear external Interrupt Status bit
+Arguments   : None
+Remarks     : None
 *******************************************************************/
 #define U2TX_Clear_Intr_Status_Bit     (IFS1bits.U2TXIF = 0)
 /*******************************************************************/
@@ -376,218 +369,202 @@ Remarks     : None
 
 /********************************************************************************
 Macro       : EnableIntU3RX
- 
+
 Include     : uart.h
- 
-Description : This macro sets UART Receive Interrupt 
- 
+
+Description : This macro sets UART Receive Interrupt
+
 Arguments   : None
- 
-Remarks     : This macro sets UART Receive Interrupt Enable bit of Interrupt 
+
+Remarks     : This macro sets UART Receive Interrupt Enable bit of Interrupt
               Enable Control register
 *********************************************************************************/
 #define EnableIntU3RX                    asm("BSET IEC5,#2")
 
 /********************************************************************************
 Macro       : EnableIntU3TX
- 
+
 Include     : uart.h
- 
-Description : This macro sets UART Transmit Interrupt 
- 
+
+Description : This macro sets UART Transmit Interrupt
+
 Arguments   : None
- 
-Remarks     : This macro sets UART Transmit Interrupt Enable bit of Interrupt 
+
+Remarks     : This macro sets UART Transmit Interrupt Enable bit of Interrupt
               Enable Control register
 *********************************************************************************/
 #define EnableIntU3TX                    asm("BSET IEC5,#3")
 
 /********************************************************************************
 Macro       : DisableIntU3RX
- 
+
 Include     : uart.h
- 
-Description : This macro disables the UART Receive Interrupt 
- 
+
+Description : This macro disables the UART Receive Interrupt
+
 Arguments   : None
- 
-Remarks     : This macro clears UART Receive Interrupt Enable bit of Interrupt 
+
+Remarks     : This macro clears UART Receive Interrupt Enable bit of Interrupt
               Enable Control register
 *********************************************************************************/
 #define DisableIntU3RX                   asm("BCLR IEC5,#2")
 
 /********************************************************************************
 Macro       : DisableIntU3TX
- 
+
 Include     : uart.h
- 
-Description : This macro disables the UART Transmit Interrupt 
- 
+
+Description : This macro disables the UART Transmit Interrupt
+
 Arguments   : None
- 
-Remarks     : This macro clears UART Transmit Interrupt Enable bit of Interrupt 
+
+Remarks     : This macro clears UART Transmit Interrupt Enable bit of Interrupt
               Enable Control register
 *********************************************************************************/
 #define DisableIntU3TX                   asm("BCLR IEC5,#3")
 
 /********************************************************************************
 Macro       : SetPriorityIntU3RX
- 
+
 Include     : uart.h
- 
-Description : This macro sets priority for UART receive interrupt. 
- 
+
+Description : This macro sets priority for UART receive interrupt.
+
 Arguments   : priority - This input parameter is the level of interrupt priority
- 
-Remarks     : This macro sets UART Receive Interrupt Priority bits of Interrupt 
+
+Remarks     : This macro sets UART Receive Interrupt Priority bits of Interrupt
               Priority Control register.
 *********************************************************************************/
 #define SetPriorityIntU3RX(priority)     (IPC20bits.U3RXIP = priority)
 
 /********************************************************************************
 Macro       : SetPriorityIntU3TX
- 
+
 Include     : uart.h
- 
-Description : This macro sets priority for UART transmit interrupt. 
- 
+
+Description : This macro sets priority for UART transmit interrupt.
+
 Arguments   : priority - This input parameter is the level of interrupt priority
- 
-Remarks     : This macro sets UART Transmit Interrupt Priority bits of Interrupt 
+
+Remarks     : This macro sets UART Transmit Interrupt Priority bits of Interrupt
               Priority Control register.
 *********************************************************************************/
 #define SetPriorityIntU3TX(priority)     (IPC20bits.U3TXIP = priority)
 
 /*******************************************************************
 Macro       : U3RX_Clear_Intr_Status_Bit
-
-Include     : uart.h 
-
-Description : Macro to Clear external Interrupt Status bit 
-
-Arguments   : None 
-
-Remarks     : None 
+Include     : uart.h
+Description : Macro to Clear external Interrupt Status bit
+Arguments   : None
+Remarks     : None
 *******************************************************************/
 #define U3RX_Clear_Intr_Status_Bit     (IFS5bits.U3RXIF = 0)
 
 /*******************************************************************
 Macro       : U3TX_Clear_Intr_Status_Bit
-
-Include     : uart.h 
-
-Description : Macro to Clear external Interrupt Status bit 
-
-Arguments   : None 
-
-Remarks     : None 
+Include     : uart.h
+Description : Macro to Clear external Interrupt Status bit
+Arguments   : None
+Remarks     : None
 *******************************************************************/
 #define U3TX_Clear_Intr_Status_Bit     (IFS5bits.U3TXIF = 0)
 
 // UART 4
 /********************************************************************************
 Macro       : EnableIntU4RX
- 
+
 Include     : uart.h
- 
-Description : This macro sets UART Receive Interrupt 
- 
+
+Description : This macro sets UART Receive Interrupt
+
 Arguments   : None
- 
-Remarks     : This macro sets UART Receive Interrupt Enable bit of Interrupt 
+
+Remarks     : This macro sets UART Receive Interrupt Enable bit of Interrupt
               Enable Control register
 *********************************************************************************/
 #define EnableIntU4RX                    asm("BSET IEC5,#8")
 
 /********************************************************************************
 Macro       : EnableIntU4TX
- 
+
 Include     : uart.h
- 
-Description : This macro sets UART Transmit Interrupt 
- 
+
+Description : This macro sets UART Transmit Interrupt
+
 Arguments   : None
- 
-Remarks     : This macro sets UART Transmit Interrupt Enable bit of Interrupt 
+
+Remarks     : This macro sets UART Transmit Interrupt Enable bit of Interrupt
               Enable Control register
 *********************************************************************************/
 #define EnableIntU4TX                    asm("BSET IEC5,#9")
 
 /********************************************************************************
 Macro       : DisableIntU4RX
- 
+
 Include     : uart.h
- 
-Description : This macro disables the UART Receive Interrupt 
- 
+
+Description : This macro disables the UART Receive Interrupt
+
 Arguments   : None
- 
-Remarks     : This macro clears UART Receive Interrupt Enable bit of Interrupt 
+
+Remarks     : This macro clears UART Receive Interrupt Enable bit of Interrupt
               Enable Control register
 *********************************************************************************/
 #define DisableIntU4RX                   asm("BCLR IEC5,#8")
 /********************************************************************************
 Macro       : DisableIntU4TX
- 
+
 Include     : uart.h
- 
-Description : This macro disables the UART Transmit Interrupt 
- 
+
+Description : This macro disables the UART Transmit Interrupt
+
 Arguments   : None
- 
-Remarks     : This macro clears UART Transmit Interrupt Enable bit of Interrupt 
+
+Remarks     : This macro clears UART Transmit Interrupt Enable bit of Interrupt
               Enable Control register
 *********************************************************************************/
 #define DisableIntU4TX                   asm("BCLR IEC5,#9")
 /********************************************************************************
 Macro       : SetPriorityIntU4RX
- 
+
 Include     : uart.h
- 
-Description : This macro sets priority for UART receive interrupt. 
- 
+
+Description : This macro sets priority for UART receive interrupt.
+
 Arguments   : priority - This input parameter is the level of interrupt priority
- 
-Remarks     : This macro sets UART Receive Interrupt Priority bits of Interrupt 
+
+Remarks     : This macro sets UART Receive Interrupt Priority bits of Interrupt
               Priority Control register.
 *********************************************************************************/
 #define SetPriorityIntU4RX(priority)     (IPC22bits.U4RXIP = priority)
 /********************************************************************************
 Macro       : SetPriorityIntU4TX
- 
+
 Include     : uart.h
- 
-Description : This macro sets priority for UART transmit interrupt. 
- 
+
+Description : This macro sets priority for UART transmit interrupt.
+
 Arguments   : priority - This input parameter is the level of interrupt priority
- 
-Remarks     : This macro sets UART Transmit Interrupt Priority bits of Interrupt 
+
+Remarks     : This macro sets UART Transmit Interrupt Priority bits of Interrupt
               Priority Control register.
 *********************************************************************************/
 #define SetPriorityIntU4TX(priority)     (IPC22bits.U4TXIP = priority)
 /*******************************************************************
 Macro       : U4RX_Clear_Intr_Status_Bit
-
-Include     : uart.h 
-
-Description : Macro to Clear external Interrupt Status bit 
-
-Arguments   : None 
-
-Remarks     : None 
+Include     : uart.h
+Description : Macro to Clear external Interrupt Status bit
+Arguments   : None
+Remarks     : None
 *******************************************************************/
 #define U4RX_Clear_Intr_Status_Bit     (IFS5bits.U4RXIF = 0)
 
 /*******************************************************************
 Macro       : U4TX_Clear_Intr_Status_Bit
-
-Include     : uart.h 
-
-Description : Macro to Clear external Interrupt Status bit 
-
-Arguments   : None 
-
-Remarks     : None 
+Include     : uart.h
+Description : Macro to Clear external Interrupt Status bit
+Arguments   : None
+Remarks     : None
 *******************************************************************/
 #define U4TX_Clear_Intr_Status_Bit     (IFS5bits.U4TXIF = 0)
 
@@ -614,7 +591,7 @@ Remarks     : None
 #define	D0						LATDbits.LATD7
 #define	D1						LATDbits.LATD6
 #define	D2						LATDbits.LATD5
-#define	D3						LATDbits.LATD4	
+#define	D3						LATDbits.LATD4
 #define	D4						LATDbits.LATD3
 
 // Uart Device Status
@@ -625,17 +602,17 @@ Remarks     : None
 #define END_OF_DATA                         '#'
 #define STAR                                '*'
 #define LOOP_DATA                           (80)
-#define WIRED_REMOTE_DATA_SIZE              (50)    
+#define WIRED_REMOTE_DATA_SIZE              (50)
 
 
 
 /********************************   UART  *************************************************************/
 typedef struct
 {
-	unsigned char Tx_bus_free;			
-	unsigned char Rx_bus_free;			
+	unsigned char Tx_bus_free;
+	unsigned char Rx_bus_free;
 	unsigned char device_name;
-	unsigned char device_status;	
+	unsigned char device_status;
 	unsigned char data_frame_received;
 	unsigned char Setting_Frame_Received;
 	unsigned char start_comm;
@@ -646,11 +623,11 @@ typedef struct
     unsigned int TxBuffSize;				//total number of bytes to be transmitted on uart
 	unsigned int RxBuffSize;				// Total number of bytes to br received on Uart.
     int 		 timeout_count;
-	
-    unsigned char *RxBufAdd; 				//receive data buffer address pointer	
-	unsigned char *TxBufAdd;				//transmit data buffer address pointer 
+
+    unsigned char *RxBufAdd; 				//receive data buffer address pointer
+	unsigned char *TxBufAdd;				//transmit data buffer address pointer
 	unsigned char *RXBufAdd_Copy;
-    
+
 }BSLUART;
 
 /********************************************************************************************************
@@ -662,7 +639,8 @@ typedef struct
  Function Prototype Section
 ********************************************************************************************************/
 void init_uart2(void);
-void write_uart2(int );
+void write_uart2(char );
+void wites_uart2(char *);
 int read_uart2(void);
 void init_uart1(void);
 void write_uart1(int );
@@ -676,4 +654,3 @@ char read_uart1(void);
 
 
 #endif	/* BSL_UART_H */
-
