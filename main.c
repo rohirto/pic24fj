@@ -18,8 +18,9 @@ int main(void)
    init_uart1();
     //clockswitch();
     IEC0=0x0001;
-    write_uart2('r');
-  write_uart1('r');
+   // write_uart2('r');
+ // write_uart1('r');
+  writes_uart2("hello");
     while(1)
     {
         for( i = 0; i < 50000; i++);
@@ -32,10 +33,10 @@ int main(void)
 		for( i = 0; i < 50000; i++);
 		LATDbits.LATD8 = 0;
 		LATDbits.LATD10 = 0;
-       c = read_uart2();      
+       c = read_uart2();
          write_uart2(c);
          //delay();
-        // e = read_uart1();      
+        // e = read_uart1();
          write_uart1('m');
 	}
 }
@@ -68,7 +69,7 @@ void init(void)
         LATDbits.LATD0=1;
         LATCbits.LATC13=1;
         LATBbits.LATB14=1;
-        
+
         LATGbits.LATG7=1;
         for( i = 0; i < 50000; i++);
 		for( i = 0; i < 50000; i++);
@@ -99,18 +100,18 @@ void init_uart2(void){
     //pin mapping
     UART_2_TX_PIN_SELECT;
     UART_2_RX_PIN_SELECT;
-    
+
     //pin directions
     UART_2_TX_PIN_DIR;
     UART_2_RX_PIN_DIR;
     DIRECTION_FOR_485;
-    
-    U2MODE = (UART_EN) |							// Enable UART Module
-			 (UART_IDLE_CON)|						// Work in IDLE mode 
-			 (UART_IrDA_DISABLE)|
-              (UART_EVEN_PAR_8BIT);	
 
- 
+    U2MODE = (UART_EN) |							// Enable UART Module
+			 (UART_IDLE_CON)|						// Work in IDLE mode
+			 (UART_IrDA_DISABLE)|
+              (UART_EVEN_PAR_8BIT);
+
+
 	U2STA =  (UART_INT_TX_EACH_CHAR)|				// Interrupt on transfer of every character to TSR
 			 (UART_INT_RX_CHAR)|					// Interrupt on every char receive
 			 (UART_TX_ENABLE);						// Transmit enable
@@ -126,24 +127,24 @@ void init_uart2(void){
 	U2RX_Clear_Intr_Status_Bit;						// Cleat status bits
 	U2TX_Clear_Intr_Status_Bit;
 
-    
+
 }
 void init_uart1(void){
     //pin mapping
     UART_1_TX_PIN_SELECT;
     UART_1_RX_PIN_SELECT;
-    
+
     //pin directions
     UART_1_TX_PIN_DIR;
     UART_1_RX_PIN_DIR;
     //DIRECTION_FOR_485;
-    
-    U1MODE = (UART_EN) |							// Enable UART Module
-			 (UART_IDLE_CON)|						// Work in IDLE mode 
-			 (UART_IrDA_DISABLE)|
-              (UART_EVEN_PAR_8BIT);	
 
- 
+    U1MODE = (UART_EN) |							// Enable UART Module
+			 (UART_IDLE_CON)|						// Work in IDLE mode
+			 (UART_IrDA_DISABLE)|
+              (UART_EVEN_PAR_8BIT);
+
+
 	U1STA =  (UART_INT_TX_EACH_CHAR)|				// Interrupt on transfer of every character to TSR
 			 (UART_INT_RX_CHAR)|					// Interrupt on every char receive
 			 (UART_TX_ENABLE);						// Transmit enable
@@ -159,32 +160,50 @@ void init_uart1(void){
 	U1RX_Clear_Intr_Status_Bit;						// Cleat status bits
 	U1TX_Clear_Intr_Status_Bit;
 
-    
+
 }
 
-void write_uart2(int c){
+void write_uart2(char c){
     while(U2STAbits.UTXBF);
     START_SENDING_ON_485;
     U2TXREG  = c;
     delay();
-    
-        
+
+
+}
+void writes_uart2(char *s){
+    while(*s){
+        write_uart2(*s++);
+    }
 }
 void write_uart1(int c){
     while(U1STAbits.UTXBF);
     //START_SENDING_ON_485;
     U1TXREG  = c;
     delay();
-    
-        
+
+
 }
 
-int read_uart2(void)
+char read_uart2(void)
 {
     STOP_SENDING_ON_485;
     while(!U2STAbits.URXDA);
     return U2RXREG;
 }
+char *reads_uart2(char *s, int len){
+    char *p = s; //copy the buffer
+    do{
+        *s = read_uart2();
+        if(*s == '\r')
+            break;
+        s++;
+        len --;
+        }while(len>1);
+        *s = '\0';
+        return p;
+}
+
 char read_uart1(void)
 {
    // STOP_SENDING_ON_485;
